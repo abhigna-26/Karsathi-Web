@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KarSathi — WhatsApp OS for Indian MSMEs</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--green:#1a6b3c;--green-light:#e8f5ee;--green-mid:#2d9a5f;
+--text:#1a1a1a;--muted:#5a5a5a;--border:#e0e0d8;
+--bg:#fafaf7;--white:#ffffff;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{text-decoration:none;color:inherit}
+
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 5%;border-bottom:1px solid var(--border);
+  background:var(--white);position:sticky;top:0;z-index:100;
+}
+.logo{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;color:var(--green)}
+
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:0.7rem;
+}
+
+.logo-img{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+}
+
+.logo-wrap{
+  display:flex;
+  align-items:center;
+  gap:0.9rem;
+}
+
+.logo-text{
+  font-size:1.7rem;
+}
+
+.logo-text{
+  font-family:'Fraunces',serif;
+  font-size:1.45rem;
+  font-weight:600;
+  color:var(--green);
+}
+
+.nav-links{display:flex;gap:2rem;font-size:0.9rem;color:var(--muted)}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{
+  background:var(--green);color:var(--white);
+  padding:0.6rem 1.4rem;border-radius:100px;font-size:0.9rem;font-weight:500;
+  transition:background 0.2s;
+}
+.nav-cta:hover{background:#155c33}
+
+.hero{
+  padding:6rem 5% 5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  max-width:1200px;margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--green-light);color:var(--green);
+  padding:0.4rem 1rem;border-radius:100px;font-size:0.82rem;font-weight:500;
+  margin-bottom:1.5rem;
+}
+.hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--green-mid);display:inline-block}
+h1{
+  font-family:'Fraunces',serif;font-size:3.2rem;font-weight:600;
+  line-height:1.15;margin-bottom:1.5rem;color:var(--text);
+}
+h1 em{font-style:italic;color:var(--green)}
+.hero-sub{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;max-width:480px;line-height:1.7}
+.hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--green);color:var(--white);
+  padding:0.85rem 2rem;border-radius:100px;font-size:0.95rem;font-weight:500;
+  transition:background 0.2s;display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-primary:hover{background:#155c33}
+.btn-secondary{
+  color:var(--muted);font-size:0.9rem;
+  display:inline-flex;align-items:center;gap:0.4rem;
+}
+.btn-secondary:hover{color:var(--green)}
+.hero-price{font-size:0.85rem;color:var(--muted);margin-top:1rem}
+.hero-price strong{color:var(--text)}
+
+.chat-demo{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:20px;padding:1.5rem;
+  box-shadow:0 4px 40px rgba(0,0,0,0.06);
+}
+.chat-header{
+  display:flex;align-items:center;gap:0.75rem;
+  padding-bottom:1rem;border-bottom:1px solid var(--border);margin-bottom:1rem;
+}
+.chat-avatar{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--green);display:flex;align-items:center;justify-content:center;
+  color:var(--white);font-family:'Fraunces',serif;font-size:1rem;font-weight:600;
+}
+.chat-name{font-weight:500;font-size:0.95rem}
+.chat-status{font-size:0.78rem;color:var(--green-mid);display:flex;align-items:center;gap:0.3rem}
+.chat-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green-mid);display:inline-block}
+.msg{margin-bottom:0.75rem;display:flex;flex-direction:column}
+.msg.user{align-items:flex-end}
+.msg.bot{align-items:flex-start}
+.bubble{
+  padding:0.65rem 1rem;border-radius:14px;font-size:0.88rem;
+  max-width:85%;line-height:1.5;
+}
+.msg.user .bubble{background:var(--green);color:var(--white);border-bottom-right-radius:4px}
+.msg.bot .bubble{background:#f0f0eb;color:var(--text);border-bottom-left-radius:4px}
+.msg-time{font-size:0.72rem;color:var(--muted);margin-top:0.25rem;padding:0 0.25rem}
+
+.section{padding:5rem 5%;max-width:1200px;margin:0 auto}
+.section-label{
+  font-size:0.82rem;font-weight:500;color:var(--green);
+  text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem;
+}
+h2{
+  font-family:'Fraunces',serif;font-size:2.4rem;font-weight:600;
+  line-height:1.2;margin-bottom:1rem;
+}
+.section-sub{font-size:1.05rem;color:var(--muted);max-width:560px;margin-bottom:3rem;line-height:1.7}
+
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.problem-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:16px;padding:1.5rem;
+}
+.problem-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:#fff0ee;display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1rem;
+}
+.problem-card h3{font-size:1rem;font-weight:500;margin-bottom:0.5rem}
+.problem-card p{font-size:0.88rem;color:var(--muted);line-height:1.6}
+
+.divider{height:1px;background:var(--border);margin:0 5%}
+
+.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.feature-card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:16px;padding:1.75rem;
+  transition:border-color 0.2s;
+}
+.feature-card:hover{border-color:var(--green-mid)}
+.feature-num{
+  font-family:'Fraunces',serif;font-size:2rem;font-weight:300;
+  color:var(--border);margin-bottom:0.75rem;line-height:1;
+}
+.feature-card h3{font-size:1.05rem;font-weight:500;margin-bottom:0.5rem}
+.feature-card p{font-size:0.88rem;color:var(--muted);line-height:1.6}
+.feature-tag{
+  display:inline-block;background:var(--green-light);color:var(--green);
+  font-size:0.75rem;padding:0.25rem 0.7rem;border-radius:100px;
+  margin-top:0.75rem;font-weight:500;
+}
+
+.commands-section{
+  background:var(--text);border-radius:24px;
+  padding:3.5rem;margin:5rem 5%;
+}
+.commands-section .section-label{color:#5dba8a}
+.commands-section h2{color:var(--white)}
+.commands-section .section-sub{color:#888;margin-bottom:2.5rem}
+.commands-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.cmd-item{
+  background:#ffffff0f;border:1px solid #ffffff15;
+  border-radius:12px;padding:1.25rem 1.5rem;
+  display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start;
+}
+.cmd-input{
+  font-family:'DM Sans',monospace;font-size:0.88rem;
+  color:#5dba8a;font-style:italic;margin-bottom:0.35rem;
+}
+.cmd-output{font-size:0.82rem;color:#aaa;line-height:1.5}
+.cmd-arrow{color:#5dba8a;font-size:1.1rem;margin-top:2px}
+
+.how-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.step-card{text-align:center;padding:1.5rem 1rem}
+.step-num{
+  width:48px;height:48px;border-radius:50%;
+  border:2px solid var(--green);color:var(--green);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;
+  margin:0 auto 1rem;
+}
+.step-card h3{font-size:0.95rem;font-weight:500;margin-bottom:0.4rem}
+.step-card p{font-size:0.82rem;color:var(--muted);line-height:1.5}
+.step-connector{
+  display:flex;align-items:center;justify-content:center;
+  color:var(--border);font-size:1.5rem;padding-top:1.5rem;
+}
+
+.pricing-card{
+  max-width:480px;margin:0 auto;
+  background:var(--white);border:2px solid var(--green);
+  border-radius:24px;padding:2.5rem;text-align:center;
+}
+.pricing-badge{
+  display:inline-block;background:var(--green);color:var(--white);
+  font-size:0.78rem;padding:0.3rem 0.9rem;border-radius:100px;
+  margin-bottom:1.5rem;font-weight:500;
+}
+.price-amount{
+  font-family:'Fraunces',serif;font-size:3.5rem;font-weight:600;
+  color:var(--green);line-height:1;
+}
+.price-period{font-size:1rem;color:var(--muted)}
+.price-trial{
+  background:var(--green-light);color:var(--green);
+  border-radius:8px;padding:0.75rem;font-size:0.88rem;
+  margin:1.5rem 0;font-weight:500;
+}
+.price-features{list-style:none;text-align:left;margin-bottom:2rem}
+.price-features li{
+  font-size:0.9rem;color:var(--muted);
+  padding:0.5rem 0;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.6rem;
+}
+.price-features li::before{content:'✓';color:var(--green);font-weight:600}
+
+footer{
+  background:var(--text);
+  color:#888;
+  padding:2rem 5%;
+  margin-top:4rem;
+}
+.footer-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding-bottom:1.2rem;
+  border-bottom:1px solid #ffffff15;
+  margin-bottom:1.2rem;
+}
+.footer-logo{font-family:'Fraunces',serif;font-size:1.5rem;color:var(--white);margin-bottom:0.5rem}
+.footer-tagline{font-size:0.85rem;line-height:1.5}
+.footer-links{display:flex;gap:3rem}
+.footer-col h4{color:var(--white);font-size:0.85rem;margin-bottom:0.75rem}
+.footer-col a{display:block;font-size:0.82rem;color:#888;margin-bottom:0.4rem}
+.footer-col a:hover{color:var(--white)}
+.footer-bottom{font-size:0.8rem;display:flex;justify-content:space-between}
+
+
+.contact-card{
+  max-width:520px;
+  margin:0 auto;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:2rem;
+  box-shadow:0 4px 30px rgba(0,0,0,0.04);
+}
+
+.contact-mail-label{
+  font-size:0.9rem;
+  color:var(--muted);
+  margin-bottom:0.8rem;
+}
+
+.contact-mail{
+  font-size:1.2rem;
+  font-weight:500;
+  color:var(--green);
+  word-break:break-word;
+}
+
+.contact-mail:hover{
+  text-decoration:underline;
+}
+
+
+
+@media(max-width:768px){
+
+  nav{
+    flex-direction:column;
+    gap:1rem;
+    padding:1rem 5%;
+  }
+
+  .nav-links{
+    gap:1rem;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .logo-img{
+    width:72px;
+    height:72px;
+  }
+
+  .logo-text{
+    font-size:1.9rem;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    gap:2rem;
+    padding:3rem 5%;
+  }
+
+  h1{
+    font-size:2.2rem;
+    text-align:center;
+  }
+
+  .hero-sub,
+  .hero-price,
+  .section-sub{
+    text-align:center;
+    max-width:100%;
+  }
+
+  .hero-actions{
+    justify-content:center;
+  }
+
+  .chat-demo{
+    padding:1rem;
+  }
+
+  .problem-grid,
+  .features-grid,
+  .how-grid,
+  .commands-grid{
+    grid-template-columns:1fr;
+  }
+
+  .commands-section{
+    padding:2rem 1.2rem;
+    margin:3rem 5%;
+  }
+
+  .pricing-card{
+    padding:2rem 1.3rem;
+  }
+
+  .footer-top{
+    flex-direction:column;
+    gap:1.5rem;
+  }
+
+  .footer-links{
+    gap:2rem;
+    flex-wrap:wrap;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:0.6rem;
+    text-align:center;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  
+<div class="logo-wrap">
+  <img src="Kar logo.jpeg" alt="KarSathi Logo" class="logo-img">
+  <span class="logo-text">KarSathi</span>
+</div>
+
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#pricing" class="nav-cta">Try Free →</a>
+</nav>
+
+<section style="background:var(--white)">
+<div class="hero">
+  <div>
+    <div class="hero-badge"><span></span> WhatsApp-native · Hindi · Indian MSMEs</div>
+    <h1>Run your entire business from <em>WhatsApp.</em></h1>
+    <p class="hero-sub">KarSathi is the operating system for Indian small businesses — bookkeeping, GST, invoices, compliance, and CA coordination, all through a single WhatsApp conversation in Hindi.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-primary">Start Free Week →</a>
+      <a href="#features" class="btn-secondary">See all features ↓</a>
+    </div>
+    <p class="hero-price">Early access · <strong>₹499/month</strong> · First week free · No app to download</p>
+  </div>
+
+  <div class="chat-demo">
+    <div class="chat-header">
+      <div class="chat-avatar">K</div>
+      <div>
+        <div class="chat-name">KarSathi</div>
+        <div class="chat-status">Always online</div>
+      </div>
+    </div>
+    <div class="msg user"><div class="bubble">Aaj 25k ka dhanda hua</div><div class="msg-time">9:02 AM</div></div>
+    <div class="msg bot"><div class="bubble">✓ ₹25,000 aaj ke sales mein add ho gaye. Is mahine ab tak total: ₹1,84,000. GST: ₹9,200 collected.</div><div class="msg-time">9:02 AM</div></div>
+    <div class="msg user"><div class="bubble">GST kitna pending hai?</div><div class="msg-time">9:15 AM</div></div>
+    <div class="msg bot"><div class="bubble">GSTR-3B: ₹9,200 pending — due June 20, 26 din baaki. Late file kiya toh ₹50/din penalty lagegi.</div><div class="msg-time">9:15 AM</div></div>
+    <div class="msg user"><div class="bubble">Invoice bana do Ramesh ke liye 15k ka</div><div class="msg-time">9:31 AM</div></div>
+    <div class="msg bot"><div class="bubble">✓ Invoice #47 ready — Ramesh Kumar, ₹15,000 + GST ₹2,700 = ₹17,700. Bhej doon?</div><div class="msg-time">9:31 AM</div></div>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+  <div class="section-label">The Problem</div>
+  <h2>Small businesses deserve better tools.</h2>
+  <p class="section-sub">India's 6 crore MSMEs run their business on WhatsApp and notebooks. Existing software is built for accountants, not business owners.</p>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">📱</div>
+      <h3>Fragmented workflow</h3>
+      <p>Tally for accounting. ClearTax for GST. Khatabook for ledger. Three apps, three logins, zero integration — and you still forget deadlines.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">💸</div>
+      <h3>Penalties from confusion</h3>
+      <p>GST filing missed because the due date slipped. MSME vendor payment delayed past 45 days — now non-deductible. Small mistakes, large penalties.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📞</div>
+      <h3>CA unavailable at 11 PM</h3>
+      <p>Basic compliance questions answered for free by your CA on WhatsApp — but only when they're available. You run a business 24/7. Your support should too.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="features">
+  <div class="section-label">Features</div>
+  <h2>Everything your business needs. One conversation.</h2>
+  <p class="section-sub">KarSathi works silently in the background. You run your business. KarSathi handles the rest.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-num">01</div>
+      <h3>Talks like a friend, not a bot</h3>
+      <p>Hindi ya English — aap choose karo. No menus, no "Press 1 for GST." KarSathi remembers your language, your business, your history — and talks like a trusted CA friend.</p>
+      <span class="feature-tag">Conversational AI</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">02</div>
+      <h3>Remembers your business silently</h3>
+      <p>As you chat, KarSathi quietly learns — your state, business type, GST status, turnover. No form to fill. It picks this up from natural conversation, like a CA who listens carefully.</p>
+      <span class="feature-tag">Business memory</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">03</div>
+      <h3>GST & tax deadline alerts</h3>
+      <p>Exact dates, days remaining, late fee per day — specific to your business. "GSTR-3B — 20 June, 26 din baaki. Late file kiya toh ₹50/din." No vague answers.</p>
+      <span class="feature-tag">Compliance calendar</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">04</div>
+      <h3>Invoice tracking via photo</h3>
+      <p>Send a photo or PDF of any supplier invoice. KarSathi reads vendor name, amount, date automatically. Confirms, saves, and tracks the payment deadline — including MSME 45-day risk.</p>
+      <span class="feature-tag">Invoice management</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">05</div>
+      <h3>MSME payment risk warning</h3>
+      <p>If your supplier is an MSME, you must pay within 45 days by law. Miss it: 25.5% interest per year + full amount becomes non-deductible in income tax. KarSathi flags this before it becomes a problem.</p>
+      <span class="feature-tag">Section 43B(h)</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">06</div>
+      <h3>Bank SMS payment matching</h3>
+      <p>Forward any payment SMS. KarSathi automatically matches it to the right invoice and marks it paid. Your records stay clean without any manual work.</p>
+      <span class="feature-tag">Auto-reconciliation</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">07</div>
+      <h3>Morning reminders at 9 AM</h3>
+      <p>Every morning, KarSathi tells you what needs attention today — GST deadlines within 7 days, overdue unpaid invoices. You never miss a deadline because you forgot.</p>
+      <span class="feature-tag">Daily briefing</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-num">08</div>
+      <h3>156 laws. 22 business types. All Hindi.</h3>
+      <p>Ask anything about Indian business compliance — GST, income tax, FSSAI, Udyam, EPF, MSMED — and get plain Hindi answers with specific rupee amounts for penalties and clear next steps.</p>
+      <span class="feature-tag">Knowledge engine</span>
+    </div>
+  </div>
+</section>
+
+<div class="commands-section">
+  <div class="section-label">What you can say</div>
+  <h2 style="font-family:'Fraunces',serif;font-size:2.2rem;margin-bottom:0.75rem">Just message. KarSathi handles it.</h2>
+  <p class="section-sub">Voice note ya text — jo aapko easy lage. KarSathi samjhega.</p>
+  <div class="commands-grid">
+    <div class="cmd-item">
+      <div class="cmd-arrow">→</div>
+      <div>
+        <div class="cmd-input">"Aaj 25k ka dhanda hua"</div>
+        <div class="cmd-output">Logs today's revenue, updates monthly total, calculates GST collected</div>
+      </div>
+    </div>
+    <div class="cmd-item">
+      <div class="cmd-arrow">→</div>
+      <div>
+        <div class="cmd-input">"GST kitna pending hai?"</div>
+        <div class="cmd-output">Shows exact amount, due date, days left, and daily late fee</div>
+      </div>
+    </div>
+    <div class="cmd-item">
+      <div class="cmd-arrow">→</div>
+      <div>
+        <div class="cmd-input">"Invoice bana do"</div>
+        <div class="cmd-output">Generates GST-compliant invoice, ready to forward to client</div>
+      </div>
+    </div>
+    <div class="cmd-item">
+      <div class="cmd-arrow">→</div>
+      <div>
+        <div class="cmd-input">"Is month profit kam kyu hua?"</div>
+        <div class="cmd-output">Analyses revenue vs expenses, flags top reasons, gives next steps</div>
+      </div>
+    </div>
+    <div class="cmd-item">
+      <div class="cmd-arrow">→</div>
+      <div>
+        <div class="cmd-input">"Last month ke unpaid bills dikhao"</div>
+        <div class="cmd-output">Lists all pending invoices with amounts, due dates, and risk flags</div>
+      </div>
+    </div>
+    <div class="cmd-item">
+      <div class="cmd-arrow">→</div>
+      <div>
+        <div class="cmd-input">"Mujhe FSSAI chahiye kya?"</div>
+        <div class="cmd-output">Checks your business type and turnover, gives a definitive yes/no with next steps</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="how">
+  <div class="section-label">How it works</div>
+  <h2>Set up in 2 minutes. No training needed.</h2>
+  <p class="section-sub">If you can use WhatsApp, you can use KarSathi. That's the whole idea.</p>
+  <div class="how-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Save the number</h3>
+      <p>Save KarSathi's WhatsApp number on your phone. That's it. No app download.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Say hi</h3>
+      <p>Message "Hi" and KarSathi asks your language preference. Hindi or English — your choice.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Tell it about your business</h3>
+      <p>Just chat naturally. KarSathi learns your business type, state, and GST status from conversation.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h3>Run your business</h3>
+      <p>Send revenue updates, ask questions, track invoices, get reminders. KarSathi handles the back office.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section" id="pricing" style="text-align:center">
+  <div class="section-label">Pricing</div>
+  <h2>One simple price.</h2>
+  <p class="section-sub" style="margin:0 auto 3rem">Less than one CA consultation. More useful than ten.</p>
+  <div class="pricing-card">
+    <div class="pricing-badge">Early Access</div>
+    <div class="price-amount">₹499</div>
+    <div class="price-period">per month</div>
+    <div class="price-trial">🎉 First week completely free — no payment needed to start</div>
+    <ul class="price-features">
+      <li>Unlimited compliance questions in Hindi</li>
+      <li>GST, advance tax & deadline tracking</li>
+      <li>Invoice creation & tracking</li>
+      <li>MSME payment risk alerts</li>
+      <li>Bank SMS auto-matching</li>
+      <li>Daily 9 AM business briefing</li>
+      <li>156 laws across 22 business segments</li>
+      <li>CA coordination when you need it</li>
+    </ul>
+    <a href="https://kar-sathi.vercel.app" class="btn-primary" style="width:100%;justify-content:center;font-size:1rem">Start Free Week →</a>
+    <p style="font-size:0.8rem;color:var(--muted);margin-top:1rem">No credit card required · Cancel anytime · Your data stays private</p>
+  </div>
+</section>
+
+
+<section class="section" id="contact" style="text-align:center">
+  <div class="section-label">Contact</div>
+  <h2>Talk to the KarSathi team.</h2>
+  <p class="section-sub" style="margin:0 auto 2rem">
+    Questions, partnerships, feedback, or early access requests —
+    we’d love to hear from you.
+  </p>
+
+  <div class="contact-card">
+    <p class="contact-mail-label">Email us at</p>
+    <a href="mailto:karsathi.team1@gmail.com" class="contact-mail">
+      karsathi.team1@gmail.com
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">KarSathi</div>
+      <div class="footer-tagline">Compliance se Vyapar tak,<br>Bharat se Duniya tak.</div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="mailto:karsathi.team1@gmail.com">Contact us</a>
+        <a href="https://kar-sathi.vercel.app">kar-sathi.vercel.app</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 KarSathi. All rights reserved.</span>
+    <span>Built for Bharat 🇮🇳</span>
+  </div>
+</footer>
+
+</body>
+</html>
